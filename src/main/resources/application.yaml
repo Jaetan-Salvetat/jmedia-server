@@ -1,4 +1,5 @@
 ktor:
+  development: $DEV_MODE
   deployment:
     host: "localhost"
     port: 8080
