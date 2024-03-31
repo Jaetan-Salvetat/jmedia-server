@@ -1,7 +1,6 @@
 ktor:
   development: $DEV_MODE
   deployment:
-    host: "0.0.0.0"
     port: 8080
   application:
     modules:
