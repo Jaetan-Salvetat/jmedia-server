@@ -1,6 +1,6 @@
 ktor:
   deployment:
-    host: $RAILWAY_PUBLIC_DOMAIN
+    host: $DOMAIN
     port: 8080
   application:
     modules:
