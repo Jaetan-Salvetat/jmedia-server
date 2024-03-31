@@ -8,4 +8,4 @@ ktor:
       - com.jmedia.ApplicationKt.module
 
 sample:
-  helloWorld: $HELLO_WORLD
+  helloWorld: "HELLO_WORLD"
