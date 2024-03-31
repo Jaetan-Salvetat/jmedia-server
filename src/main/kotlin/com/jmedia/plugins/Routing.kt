@@ -11,7 +11,9 @@ fun Application.configureRouting() {
 }
 
 private fun Routing.feedback() = route("/") {
+    val toReturn = environment?.config?.propertyOrNull("sample.helloWorld")?.getString() ?: "null"
+
     get("/") {
-        call.respondText("Hello World!")
+        call.respondText(toReturn)
     }
 }
