@@ -1,6 +1,6 @@
 ktor:
   deployment:
-    host: $DOMAIN
+    host: localhost
     port: 8080
   application:
     modules:
