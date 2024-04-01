@@ -6,5 +6,8 @@ ktor:
     modules:
       - com.jmedia.ApplicationKt.module
 
-sample:
-  helloWorld: $HELLO_WORLD
+database:
+  url: $DB_URL
+  driver: $DB_DRIVER
+  user: $DB_USER
+  password: $DB_PASSWORD

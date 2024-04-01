@@ -2,6 +2,8 @@
 val ktorVersion: String by project
 val kotlinVersion: String by project
 val logbackVersion: String by project
+val postgresqlDriverVersion: String by project
+val exposedVersion: String by project
 
 plugins {
     kotlin("jvm") version "1.9.23"
@@ -24,6 +26,10 @@ repositories {
 }
 
 dependencies {
+    implementation("org.postgresql:postgresql:$postgresqlDriverVersion")
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
     implementation("de.sharpmind.ktor:ktor-env-config:2.1.0")
     implementation("io.ktor:ktor-server-config-yaml")
     implementation("io.ktor:ktor-server-content-negotiation-jvm")
