@@ -7,12 +7,9 @@ import org.jetbrains.exposed.sql.transactions.transaction
 
 fun Application.configureDatabase() {
     val config = environment.config
-    println(config.property("database.url").getString())
 
-    try {
-        DatabaseUtils.initialize(config)
-        DatabaseUtils.createSchemas()
-    } catch (_: Exception) {}
+    DatabaseUtils.initialize(config)
+    DatabaseUtils.createSchemas()
 }
 
 private object DatabaseUtils {
