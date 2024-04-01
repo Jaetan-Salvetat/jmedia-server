@@ -23,19 +23,23 @@ private object DatabaseUtils {
     )
 
     fun initialize(config: ApplicationConfig) {
+        println("Initialize database...")
         Database.connect(
             url = config.property("database.url").getString(),
             driver = config.property("database.driver").getString(),
             user = config.property("database.user").getString(),
             password = config.property("database.password").getString()
         )
+        println("Database initialized 💪")
     }
 
     fun createSchemas() {
+        println("Create tables...")
         transaction {
             tables.forEach {
                 exec(it)
             }
         }
+        println("Tables created 💪")
     }
 }
