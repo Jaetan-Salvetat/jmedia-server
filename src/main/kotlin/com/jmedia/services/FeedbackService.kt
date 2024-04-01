@@ -6,6 +6,8 @@ import com.jmedia.repositories.FeedbackRepository
 class FeedbackService {
     private val feedbackRepository = FeedbackRepository()
 
+    suspend fun getAll(): List<Feedback> = feedbackRepository.getAll()
+
     suspend fun create(title: String, description: String, type: String): FeedbackResult {
         return when {
             title.isBlank() -> FeedbackResult.TitleNotFound

@@ -2,7 +2,6 @@ package com.jmedia.models.local
 
 import com.jmedia.models.database.FeedbackTable
 import com.jmedia.models.responses.FullFeedbackResponse
-import org.jetbrains.exposed.sql.Query
 import org.jetbrains.exposed.sql.ResultRow
 
 enum class FeedbackType {
@@ -33,11 +32,11 @@ fun Feedback.toFullFeedbackResponse() = FullFeedbackResponse(
     type = type.name.lowercase()
 )
 
+fun List<Feedback>.toFullFeedbackResponseList() = map { it.toFullFeedbackResponse() }
+
 fun ResultRow.toFeedback() = Feedback(
     id = this[FeedbackTable.id],
     title = this[FeedbackTable.title],
     description = this[FeedbackTable.description],
     type = FeedbackType.fromString(this[FeedbackTable.type]),
 )
-
-fun Query.toArticles() = this.map { it.toFeedback() }

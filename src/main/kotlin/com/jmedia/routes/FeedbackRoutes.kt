@@ -1,6 +1,7 @@
 package com.jmedia.routes
 
 import com.jmedia.models.local.toFullFeedbackResponse
+import com.jmedia.models.local.toFullFeedbackResponseList
 import com.jmedia.models.request.FeedbackRequest
 import com.jmedia.models.responses.ErrorResponse
 import com.jmedia.services.FeedbackResult
@@ -15,6 +16,10 @@ fun Route.feedback() {
     val feedbackService = FeedbackService()
 
     route("feedback") {
+        get {
+            call.respond(HttpStatusCode.OK, feedbackService.getAll().toFullFeedbackResponseList())
+        }
+
         post {
             val body = call.receive<FeedbackRequest>()
 
