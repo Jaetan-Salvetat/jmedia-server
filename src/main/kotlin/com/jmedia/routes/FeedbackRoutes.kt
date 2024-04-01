@@ -32,6 +32,10 @@ fun Route.feedback() {
                     status = HttpStatusCode.InternalServerError,
                     message = ErrorResponse(result.message)
                 )
+                is FeedbackResult.AlreadyExist -> call.respond(
+                    status = HttpStatusCode.Conflict,
+                    message = ErrorResponse(result.message)
+                )
                 else -> call.respond(
                     status = HttpStatusCode.BadRequest,
                     message = ErrorResponse(result.message)
