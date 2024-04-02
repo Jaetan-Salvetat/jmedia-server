@@ -26,6 +26,7 @@ repositories {
 }
 
 dependencies {
+    implementation("io.minio:minio:8.5.9")
     implementation("org.postgresql:postgresql:$postgresqlDriverVersion")
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
