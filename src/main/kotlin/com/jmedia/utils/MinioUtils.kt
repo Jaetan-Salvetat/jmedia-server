@@ -1,4 +1,4 @@
-package com.jmedia
+package com.jmedia.utils
 
 import io.ktor.server.config.*
 import io.minio.BucketExistsArgs

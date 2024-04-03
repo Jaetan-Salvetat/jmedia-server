@@ -9,6 +9,8 @@ suspend fun MultiPartData.getFiles(): List<File> {
 
     forEachPart {
         if (it is PartData.FileItem) {
+            println("filename: ${it.originalFileName}")
+
             val fileName = UUID.randomUUID().toString()
             val bytes = it.streamProvider().readBytes()
             val file = File("upload", fileName)
@@ -17,6 +19,8 @@ suspend fun MultiPartData.getFiles(): List<File> {
             files.add(file)
         }
     }
+
+    println("files length: ${files.size}")
 
     return  files
 }

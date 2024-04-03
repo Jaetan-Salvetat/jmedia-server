@@ -1,4 +1,4 @@
-package com.jmedia
+package com.jmedia.utils
 
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction

@@ -4,7 +4,7 @@ import com.jmedia.models.database.FeedbackTable
 import com.jmedia.models.local.Feedback
 import com.jmedia.models.local.FeedbackType
 import com.jmedia.models.local.toFeedback
-import com.jmedia.suspendedTransaction
+import com.jmedia.utils.suspendedTransaction
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll

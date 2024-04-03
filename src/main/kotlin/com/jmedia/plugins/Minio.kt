@@ -1,6 +1,6 @@
 package com.jmedia.plugins
 
-import com.jmedia.MinioUtils
+import com.jmedia.utils.MinioUtils
 import io.ktor.server.application.*
 
 fun Application.configureMinio() {
