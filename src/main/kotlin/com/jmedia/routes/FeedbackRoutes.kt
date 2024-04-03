@@ -1,8 +1,10 @@
 package com.jmedia.routes
 
+import com.jmedia.extensions.getFiles
 import com.jmedia.models.local.toFullFeedbackResponse
 import com.jmedia.models.local.toFullFeedbackResponseList
 import com.jmedia.models.request.FeedbackRequest
+import com.jmedia.models.request.fromFormItem
 import com.jmedia.models.responses.ErrorResponse
 import com.jmedia.services.FeedbackResult
 import com.jmedia.services.FeedbackService
@@ -21,9 +23,12 @@ fun Route.feedback() {
         }
 
         post {
-            val body = call.receive<FeedbackRequest>()
+//            val body = call.receive<FeedbackRequest>()
+            val multipart = call.receiveMultipart()
+            val feedback = FeedbackRequest.fromFormItem(multipart)
+            val file = multipart.getFiles().firstOrNull()
 
-            when (val result = feedbackService.create(body.title, body.description, body.type)) {
+            when (val result = feedbackService.create(feedback.title, feedback.description, feedback.type, file)) {
                 is FeedbackResult.Success -> call.respond(
                     status = HttpStatusCode.Created,
                     message = result.feedback.toFullFeedbackResponse()

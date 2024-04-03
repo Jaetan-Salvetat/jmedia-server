@@ -9,6 +9,12 @@ enum class FeedbackType {
     Bug,
     Feature;
 
+    fun toPath(filename: String?): String? = if (filename == null) {
+        null
+    } else {
+        "/${this.name.lowercase()}/$filename"
+    }
+
     companion object {
         fun fromString(name: String) = when (name.lowercase()) {
             "bug" -> Bug

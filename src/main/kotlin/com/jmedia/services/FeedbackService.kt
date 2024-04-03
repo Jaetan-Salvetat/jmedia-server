@@ -3,22 +3,26 @@ package com.jmedia.services
 import com.jmedia.models.local.Feedback
 import com.jmedia.models.local.FeedbackType
 import com.jmedia.repositories.FeedbackRepository
+import java.io.File
 
 class FeedbackService {
     private val feedbackRepository = FeedbackRepository()
 
     suspend fun getAll(): List<Feedback> = feedbackRepository.getAll()
 
-    suspend fun create(title: String, description: String, typeString: String): FeedbackResult {
-        val type = FeedbackType.fromString(typeString)
-
+    suspend fun create(
+        title: String,
+        description: String,
+        type: FeedbackType,
+        file: File?
+    ): FeedbackResult {
         return when {
             title.isBlank() -> FeedbackResult.TitleNotFound
             description.isBlank() -> FeedbackResult.DescriptionNotFound
-            typeString.isBlank() -> FeedbackResult.TypeNotFound
+            type == FeedbackType.Unknown -> FeedbackResult.TypeNotFound
             feedbackRepository.exist(title, type) -> FeedbackResult.AlreadyExist
             else -> {
-                val feedback = feedbackRepository.create(title, description, type)
+                val feedback = feedbackRepository.create(title, description, type, file)
                     ?: return FeedbackResult.UnknownError
 
                 FeedbackResult.Success(feedback)

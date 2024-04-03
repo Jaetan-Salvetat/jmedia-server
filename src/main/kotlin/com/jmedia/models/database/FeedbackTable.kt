@@ -7,6 +7,7 @@ object FeedbackTable: Table() {
     val title = varchar("title", 255)
     val description = text("description")
     val type = varchar("type", 255)
+    val filePath = varchar("filepath", 255).nullable()
 
     override val primaryKey = PrimaryKey(id)
 }

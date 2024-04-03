@@ -8,6 +8,7 @@ import com.jmedia.suspendedTransaction
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
+import java.io.File
 
 class FeedbackRepository {
     suspend fun getAll(): List<Feedback> = suspendedTransaction {
@@ -16,11 +17,17 @@ class FeedbackRepository {
             .map { it.toFeedback() }
     }
 
-    suspend fun create(title: String, description: String, type: FeedbackType): Feedback? = suspendedTransaction {
+    suspend fun create(
+        title: String,
+        description: String,
+        type: FeedbackType,
+        file: File?
+    ): Feedback? = suspendedTransaction {
         val query = FeedbackTable.insert {
             it[FeedbackTable.title] = title
             it[FeedbackTable.description] = description
             it[FeedbackTable.type] = type.name
+            it[filePath] = type.toPath(file?.name)
         }
 
         query.resultedValues?.firstOrNull()?.toFeedback()
