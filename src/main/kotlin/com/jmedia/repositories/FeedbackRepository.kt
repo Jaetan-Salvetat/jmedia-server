@@ -46,7 +46,7 @@ class FeedbackRepository {
 
     suspend fun exist(title: String, type: FeedbackType): Boolean = suspendedTransaction {
         FeedbackTable
-            .select { FeedbackTable.title eq title and(FeedbackTable.type eq type.name) }
+            .select { FeedbackTable.title eq title and (FeedbackTable.type eq type.name) }
             .toList()
             .isNotEmpty()
     }
