@@ -28,14 +28,16 @@ data class Feedback(
     val id: Int = -1,
     val title: String,
     val description: String,
-    val type: FeedbackType
+    val type: FeedbackType,
+    val filePath: String? = null
 )
 
 fun Feedback.toFullFeedbackResponse() = FullFeedbackResponse(
     id = id,
     title = title,
     description = description,
-    type = type.name.lowercase()
+    type = type.name.lowercase(),
+    filePath = filePath
 )
 
 fun List<Feedback>.toFullFeedbackResponseList() = map { it.toFullFeedbackResponse() }
