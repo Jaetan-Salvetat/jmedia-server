@@ -3,6 +3,8 @@ package com.jmedia.services
 import com.jmedia.models.local.Feedback
 import com.jmedia.models.local.FeedbackType
 import com.jmedia.repositories.FeedbackRepository
+import com.jmedia.utils.Bucket
+import com.jmedia.utils.MinioUtils
 import java.io.File
 
 class FeedbackService {
@@ -30,6 +32,7 @@ class FeedbackService {
             return FeedbackResult.DoesNotExist
         }
 
+        MinioUtils.uploadImage(Bucket.Feedback, file)
         val feedback = feedbackRepository.uploadFile(id, file)
             ?: return FeedbackResult.UnknownError
         return FeedbackResult.Success(feedback)

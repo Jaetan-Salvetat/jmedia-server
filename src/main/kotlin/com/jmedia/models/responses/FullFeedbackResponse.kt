@@ -8,5 +8,5 @@ data class FullFeedbackResponse(
     val title: String,
     val description: String,
     val type: String,
-    val filePath: String?
+    val fileUrl: String?
 ) : IResponse()
