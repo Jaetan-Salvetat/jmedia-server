@@ -31,7 +31,7 @@ object MinioUtils {
         )
     }
 
-    fun createBucketIfNotExist(bucket: Bucket) {
+    private fun createBucketIfNotExist(bucket: Bucket) {
         val exist = minio.bucketExists(BucketExistsArgs.builder().bucket(bucket.label).build())
 
         if (!exist) {

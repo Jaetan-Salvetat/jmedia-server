@@ -9,12 +9,6 @@ enum class FeedbackType {
     Bug,
     Feature;
 
-    fun toPath(filename: String?): String? = if (filename == null) {
-        null
-    } else {
-        "/${this.name.lowercase()}/$filename"
-    }
-
     companion object {
         fun fromString(name: String) = when (name.lowercase()) {
             "bug" -> Bug
@@ -46,5 +40,5 @@ fun ResultRow.toFeedback() = Feedback(
     id = this[FeedbackTable.id],
     title = this[FeedbackTable.title],
     description = this[FeedbackTable.description],
-    type = FeedbackType.fromString(this[FeedbackTable.type]),
+    type = FeedbackType.fromString(this[FeedbackTable.type])
 )

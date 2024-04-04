@@ -10,7 +10,6 @@ fun Application.module() {
     configureSerialization()
     configureDatabase()
     configureMinio()
-    // configureMonitoring()
     configureHTTP()
     configureRouting()
 }

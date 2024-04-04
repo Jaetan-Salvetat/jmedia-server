@@ -37,11 +37,11 @@ class FeedbackService {
 }
 
 sealed class FeedbackResult(val message: String) {
-    data object TitleNotFound: FeedbackResult("title_not_found")
-    data object DescriptionNotFound: FeedbackResult("description_not_found")
-    data object TypeNotFound: FeedbackResult("type_not_found")
-    data object AlreadyExist: FeedbackResult("feedback_already_exist")
-    data object DoesNotExist: FeedbackResult("feedback_does_not_exist")
-    data object UnknownError: FeedbackResult("serverside_error")
-    data class Success(val feedback: Feedback): FeedbackResult("")
+    data object TitleNotFound : FeedbackResult("title_not_found")
+    data object DescriptionNotFound : FeedbackResult("description_not_found")
+    data object TypeNotFound : FeedbackResult("type_not_found")
+    data object AlreadyExist : FeedbackResult("feedback_already_exist")
+    data object DoesNotExist : FeedbackResult("feedback_does_not_exist")
+    data object UnknownError : FeedbackResult("serverside_error")
+    data class Success(val feedback: Feedback) : FeedbackResult("")
 }

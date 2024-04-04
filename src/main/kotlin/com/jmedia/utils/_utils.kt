@@ -24,5 +24,5 @@ suspend fun getFilesFromPartData(data: MultiPartData): List<File> {
         }
     }
 
-    return  files
+    return files
 }
