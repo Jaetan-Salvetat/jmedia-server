@@ -27,13 +27,13 @@ class FeedbackService {
         }
     }
 
-    suspend fun uploadFile(id: Int, file: File): FeedbackResult {
+    suspend fun uploadFiles(id: Int, files: List<File>): FeedbackResult {
         if (!feedbackRepository.exist(id)) {
             return FeedbackResult.DoesNotExist
         }
 
-        MinioUtils.uploadImage(Bucket.Feedback, file)
-        val feedback = feedbackRepository.uploadFile(id, file)
+        MinioUtils.uploadImages(Bucket.Feedback, files)
+        val feedback = feedbackRepository.uploadFiles(id, files)
             ?: return FeedbackResult.UnknownError
         return FeedbackResult.Success(feedback)
     }
