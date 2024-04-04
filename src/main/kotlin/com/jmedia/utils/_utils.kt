@@ -17,12 +17,12 @@ suspend fun getFilesFromPartData(data: MultiPartData): List<File> {
             val fileName = UUID.randomUUID().toString()
             val fileExtension = it.originalFileName?.split(".")?.last()
             val bytes = it.streamProvider().readBytes()
-            val file = File.createTempFile("", "$fileName.$fileExtension")
+            val file = File.createTempFile(fileName, ".$fileExtension")
 
             file.writeBytes(bytes)
             files.add(file)
         }
     }
 
-    return  files
+    return files
 }

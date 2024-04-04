@@ -5,6 +5,7 @@ import io.minio.BucketExistsArgs
 import io.minio.MakeBucketArgs
 import io.minio.MinioClient
 import io.minio.UploadObjectArgs
+import java.io.File
 
 object MinioUtils {
     private lateinit var minio: MinioClient
@@ -21,17 +22,17 @@ object MinioUtils {
         Bucket.entries.forEach { createBucketIfNotExist(it) }
     }
 
-    fun uploadImage(bucket: Bucket) {
+    fun uploadImage(bucket: Bucket, file: File) {
         minio.uploadObject(
             UploadObjectArgs.builder()
                 .bucket(bucket.label)
-                .`object`("my-test-image.jpg")
-                .filename("C:\\Users\\Jaetan\\Pictures\\1034eaae550d8b58ce7250b4eb4d6664.jpeg")
+                .`object`(file.name)
+                .filename(file.absolutePath)
                 .build()
         )
     }
 
-    fun createBucketIfNotExist(bucket: Bucket) {
+    private fun createBucketIfNotExist(bucket: Bucket) {
         val exist = minio.bucketExists(BucketExistsArgs.builder().bucket(bucket.label).build())
 
         if (!exist) {
@@ -45,4 +46,8 @@ enum class Bucket {
 
     val label: String
         get() = name.lowercase()
+
+    companion object {
+        fun toPath(bucket: Bucket, file: File): String = "${bucket.label}/${file.name}"
+    }
 }

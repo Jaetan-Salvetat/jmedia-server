@@ -1,5 +1,6 @@
 package com.jmedia.models.local
 
+import com.jmedia.Constants
 import com.jmedia.models.database.FeedbackTable
 import com.jmedia.models.responses.FullFeedbackResponse
 import org.jetbrains.exposed.sql.ResultRow
@@ -8,12 +9,6 @@ enum class FeedbackType {
     Unknown,
     Bug,
     Feature;
-
-    fun toPath(filename: String?): String? = if (filename == null) {
-        null
-    } else {
-        "/${this.name.lowercase()}/$filename"
-    }
 
     companion object {
         fun fromString(name: String) = when (name.lowercase()) {
@@ -37,7 +32,7 @@ fun Feedback.toFullFeedbackResponse() = FullFeedbackResponse(
     title = title,
     description = description,
     type = type.name.lowercase(),
-    filePath = filePath
+    fileUrl = filePath?.let { "${Constants.minioBaseUrl}/$it" }
 )
 
 fun List<Feedback>.toFullFeedbackResponseList() = map { it.toFullFeedbackResponse() }
@@ -47,4 +42,5 @@ fun ResultRow.toFeedback() = Feedback(
     title = this[FeedbackTable.title],
     description = this[FeedbackTable.description],
     type = FeedbackType.fromString(this[FeedbackTable.type]),
+    filePath = this[FeedbackTable.filePath]
 )
