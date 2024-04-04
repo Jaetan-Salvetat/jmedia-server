@@ -2,6 +2,7 @@ package com.jmedia.plugins
 
 import io.ktor.server.application.*
 import io.ktor.server.config.*
+import org.intellij.lang.annotations.Language
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -13,12 +14,14 @@ fun Application.configureDatabase() {
 }
 
 private object DatabaseUtils {
+    @Language("SQL")
     private val tables = listOf(
         """CREATE TABLE IF NOT EXISTS feedback (
                 id SERIAL PRIMARY KEY,
-                title VARCHAR(255),
-                description TEXT,
-                type VARCHAR(255)
+                title VARCHAR(255) NOT NULL,
+                description TEXT NOT NULL,
+                type VARCHAR(255) NOT NULL,
+                filePath VARCHAR(255)
         )"""
     )
 
