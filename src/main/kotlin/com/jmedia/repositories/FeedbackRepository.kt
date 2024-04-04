@@ -4,10 +4,10 @@ import com.jmedia.models.database.FeedbackTable
 import com.jmedia.models.local.Feedback
 import com.jmedia.models.local.FeedbackType
 import com.jmedia.models.local.toFeedback
-import com.jmedia.suspendedTransaction
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.select
-import org.jetbrains.exposed.sql.selectAll
+import com.jmedia.utils.Bucket
+import com.jmedia.utils.suspendedTransaction
+import org.jetbrains.exposed.sql.*
+import java.io.File
 
 class FeedbackRepository {
     suspend fun getAll(): List<Feedback> = suspendedTransaction {
@@ -26,12 +26,27 @@ class FeedbackRepository {
         query.resultedValues?.firstOrNull()?.toFeedback()
     }
 
+    suspend fun uploadFile(id: Int, file: File): Feedback? = suspendedTransaction {
+        FeedbackTable.update(
+            where = { FeedbackTable.id eq id },
+            body = { it[filePath] = Bucket.toPath(Bucket.Feedback, file) }
+        )
+
+        FeedbackTable.select { FeedbackTable.id eq id }
+            .firstOrNull()
+            ?.toFeedback()
+    }
+
+    suspend fun exist(id: Int): Boolean = suspendedTransaction {
+        FeedbackTable
+            .select { FeedbackTable.id eq id }
+            .toList()
+            .isNotEmpty()
+    }
+
     suspend fun exist(title: String, type: FeedbackType): Boolean = suspendedTransaction {
         FeedbackTable
-            .select {
-                FeedbackTable.title eq title
-                FeedbackTable.type eq type.name
-            }
+            .select { FeedbackTable.title eq title and (FeedbackTable.type eq type.name) }
             .toList()
             .isNotEmpty()
     }

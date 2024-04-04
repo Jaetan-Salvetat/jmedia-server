@@ -1,5 +1,6 @@
 package com.jmedia.models.local
 
+import com.jmedia.Constants
 import com.jmedia.models.database.FeedbackTable
 import com.jmedia.models.responses.FullFeedbackResponse
 import org.jetbrains.exposed.sql.ResultRow
@@ -22,14 +23,16 @@ data class Feedback(
     val id: Int = -1,
     val title: String,
     val description: String,
-    val type: FeedbackType
+    val type: FeedbackType,
+    val filePath: String? = null
 )
 
 fun Feedback.toFullFeedbackResponse() = FullFeedbackResponse(
     id = id,
     title = title,
     description = description,
-    type = type.name.lowercase()
+    type = type.name.lowercase(),
+    fileUrl = filePath?.let { "${Constants.minioBaseUrl}/$it" }
 )
 
 fun List<Feedback>.toFullFeedbackResponseList() = map { it.toFullFeedbackResponse() }
@@ -39,4 +42,5 @@ fun ResultRow.toFeedback() = Feedback(
     title = this[FeedbackTable.title],
     description = this[FeedbackTable.description],
     type = FeedbackType.fromString(this[FeedbackTable.type]),
+    filePath = this[FeedbackTable.filePath]
 )
