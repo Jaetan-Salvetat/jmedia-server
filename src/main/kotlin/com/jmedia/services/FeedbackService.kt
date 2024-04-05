@@ -45,6 +45,6 @@ sealed class FeedbackResult(val message: String) {
     data object TypeNotFound : FeedbackResult("type_not_found")
     data object AlreadyExist : FeedbackResult("feedback_already_exist")
     data object DoesNotExist : FeedbackResult("feedback_does_not_exist")
-    data object UnknownError : FeedbackResult("serverside_error")
+    data object UnknownError : FeedbackResult("server_side_error")
     data class Success(val feedback: Feedback) : FeedbackResult("")
 }
