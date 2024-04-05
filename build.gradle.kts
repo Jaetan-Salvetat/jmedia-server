@@ -31,6 +31,7 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    implementation("io.ktor:ktor-server-swagger:$ktorVersion")
     implementation("de.sharpmind.ktor:ktor-env-config:2.1.0")
     implementation("io.ktor:ktor-server-config-yaml")
     implementation("io.ktor:ktor-server-content-negotiation-jvm")

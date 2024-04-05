@@ -22,7 +22,11 @@ object MinioUtils {
         Bucket.entries.forEach { createBucketIfNotExist(it) }
     }
 
-    fun uploadImage(bucket: Bucket, file: File) {
+    fun uploadImages(bucket: Bucket, files: List<File>) {
+        files.forEach { uploadImage(bucket, it) }
+    }
+
+    private fun uploadImage(bucket: Bucket, file: File) {
         minio.uploadObject(
             UploadObjectArgs.builder()
                 .bucket(bucket.label)
@@ -48,6 +52,10 @@ enum class Bucket {
         get() = name.lowercase()
 
     companion object {
+        fun toPathList(bucket: Bucket, files: List<File>): List<String> = files.map {
+            toPath(bucket, it)
+        }
+
         fun toPath(bucket: Bucket, file: File): String = "${bucket.label}/${file.name}"
     }
 }
