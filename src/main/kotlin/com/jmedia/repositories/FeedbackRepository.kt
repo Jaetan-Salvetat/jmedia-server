@@ -26,11 +26,10 @@ class FeedbackRepository {
         query.resultedValues?.firstOrNull()?.toFeedback()
     }
 
-    suspend fun uploadFile(id: Int, file: File): Feedback? = suspendedTransaction {
-        FeedbackTable.update(
-            where = { FeedbackTable.id eq id },
-            body = { it[filePath] = Bucket.toPath(Bucket.Feedback, file) }
-        )
+    suspend fun uploadFiles(id: Int, file: List<File>): Feedback? = suspendedTransaction {
+        FeedbackTable.update(where = { FeedbackTable.id eq id }) {
+            it[filePath] = Bucket.toPathList(Bucket.Feedback, file).joinToString(separator = "|")
+        }
 
         FeedbackTable.select { FeedbackTable.id eq id }
             .firstOrNull()
