@@ -27,7 +27,7 @@ class FeedbackRepository {
     }
 
     suspend fun uploadFiles(id: Int, file: List<File>): Feedback? = suspendedTransaction {
-        FeedbackTable.update(where = { FeedbackTable.id eq id }){
+        FeedbackTable.update(where = { FeedbackTable.id eq id }) {
             it[filePath] = Bucket.toPathList(Bucket.Feedback, file).joinToString(separator = "|")
         }
 
