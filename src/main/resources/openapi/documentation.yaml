@@ -8,7 +8,6 @@ paths:
       description: "Get all feedbacks"
       tags:
         - Feedback
-        - User
       responses:
         "200":
           description: "OK"
@@ -38,39 +37,21 @@ paths:
         "500":
           description: "Internal Server Error"
           content:
-            '*/*':
+            'application/json':
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-              examples:
-                Example#1:
-                  description: ""
-                  value:
-                    message: "null"
-                    success: false
         "409":
           description: "Conflict"
           content:
             'application/json':
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-              examples:
-                Example#1:
-                  description: ""
-                  value:
-                    message: "null"
-                    success: false
         "400":
           description: "Bad Request"
           content:
             'application/json':
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-              examples:
-                Example#1:
-                  description: ""
-                  value:
-                    message: "null"
-                    success: false
   /feedback/upload/{id}:
     post:
       description: "Create a new feedback"
@@ -88,25 +69,14 @@ paths:
           content:
             'application/json':
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-              examples:
-                Example#1:
-                  description: ""
-                  value:
-                    message: "null"
-                    success: false
+                $ref: "#/components/schemas/FullFeedbackResponse"
         "500":
           description: "Internal Server Error"
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-              examples:
-                Example#1:
-                  description: ""
-                  value:
-                    message: "null"
-                    success: false
+
 components:
   schemas:
     FullFeedbackResponse:
