@@ -1,0 +1,37 @@
+components:
+  schemas:
+    FullFeedbackResponse:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+          format: "int"
+        title:
+          type: "string"
+        description:
+          type: "string"
+        type:
+          $ref: "#/components/schemas/FeedbackType"
+        filesUrl:
+          type: "array"
+          items:
+            type: "string"
+    FeedbackRequest:
+      type: "object"
+      properties:
+        title:
+          type: "string"
+        description:
+          type: "string"
+        type:
+          $ref: "#/components/schemas/FeedbackType"
+      required:
+        - "title"
+        - "description"
+        - "type"
+    FeedbackType:
+      type: string
+      enum:
+        - bug
+        - feature
+        - other

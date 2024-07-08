@@ -24,7 +24,7 @@ data class Feedback(
     val title: String,
     val description: String,
     val type: FeedbackType,
-    val filePath: String? = null
+    val filesPath: List<String> = listOf()
 )
 
 fun Feedback.toFullFeedbackResponse() = FullFeedbackResponse(
@@ -32,7 +32,7 @@ fun Feedback.toFullFeedbackResponse() = FullFeedbackResponse(
     title = title,
     description = description,
     type = type.name.lowercase(),
-    fileUrl = filePath?.let { "${Constants.minioBaseUrl}/$it" }
+    filesUrl = filesPath.map { "${Constants.minioBaseUrl}/$it" }
 )
 
 fun List<Feedback>.toFullFeedbackResponseList() = map { it.toFullFeedbackResponse() }
@@ -42,5 +42,8 @@ fun ResultRow.toFeedback() = Feedback(
     title = this[FeedbackTable.title],
     description = this[FeedbackTable.description],
     type = FeedbackType.fromString(this[FeedbackTable.type]),
-    filePath = this[FeedbackTable.filePath]
+    filesPath = this[FeedbackTable.filePath]
+        ?.split("|")
+        ?.map { it }
+        ?: listOf()
 )

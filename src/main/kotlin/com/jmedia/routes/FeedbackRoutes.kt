@@ -57,10 +57,9 @@ fun Route.feedback() {
             val multipart = call.receiveMultipart()
             val id = call.parameters["id"]?.toIntOrNull()
                 ?: throw Exception("Id not found")
-            val file = getFilesFromPartData(multipart).firstOrNull()
-                ?: throw Exception("File is invalid")
+            val files = getFilesFromPartData(multipart)
 
-            when (val result = feedbackService.uploadFile(id, file)) {
+            when (val result = feedbackService.uploadFiles(id, files)) {
                 is FeedbackResult.Success -> call.respond(
                     status = HttpStatusCode.OK,
                     message = result.feedback.toFullFeedbackResponse()

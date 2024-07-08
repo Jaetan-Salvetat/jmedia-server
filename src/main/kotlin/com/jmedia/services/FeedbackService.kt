@@ -27,13 +27,13 @@ class FeedbackService {
         }
     }
 
-    suspend fun uploadFile(id: Int, file: File): FeedbackResult {
+    suspend fun uploadFiles(id: Int, files: List<File>): FeedbackResult {
         if (!feedbackRepository.exist(id)) {
             return FeedbackResult.DoesNotExist
         }
 
-        MinioUtils.uploadImage(Bucket.Feedback, file)
-        val feedback = feedbackRepository.uploadFile(id, file)
+        MinioUtils.uploadImages(Bucket.Feedback, files)
+        val feedback = feedbackRepository.uploadFiles(id, files)
             ?: return FeedbackResult.UnknownError
         return FeedbackResult.Success(feedback)
     }
@@ -45,6 +45,6 @@ sealed class FeedbackResult(val message: String) {
     data object TypeNotFound : FeedbackResult("type_not_found")
     data object AlreadyExist : FeedbackResult("feedback_already_exist")
     data object DoesNotExist : FeedbackResult("feedback_does_not_exist")
-    data object UnknownError : FeedbackResult("serverside_error")
+    data object UnknownError : FeedbackResult("server_side_error")
     data class Success(val feedback: Feedback) : FeedbackResult("")
 }
