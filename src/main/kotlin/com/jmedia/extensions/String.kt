@@ -13,7 +13,7 @@ fun String.getMediaTypes(): MediaTypeResult {
     val mediaTypes = mutableSetOf<MediaType>()
 
     split(",").forEach {
-        val type = MediaType.fromString(it)
+        val type = MediaType.fromString(it.trim())
             ?: return MediaTypeResult.UnknownType
         mediaTypes.add(type)
     }
