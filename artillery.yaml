@@ -22,7 +22,7 @@ scenarios:
     flow:
       - loop:
         - get:
-            url: '/api/v1/search?types=anime,manga&q=oshi no'
+            url: '/utils/get-big-data'
         - get:
-            url: '/ping'
+            url: '/utils/ping'
         count: 50

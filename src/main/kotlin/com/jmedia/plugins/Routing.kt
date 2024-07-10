@@ -1,8 +1,8 @@
 package com.jmedia.plugins
 
 import com.jmedia.routes.searchRouting
+import com.jmedia.routes.utilsRouting
 import io.ktor.server.application.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 /**
@@ -11,9 +11,7 @@ import io.ktor.server.routing.*
  */
 fun Application.configureRouting() {
     routing {
-        get("/ping") {
-            call.respondText("pong")
-        }
+        utilsRouting()
 
         route("/api") {
             route("/v1") {

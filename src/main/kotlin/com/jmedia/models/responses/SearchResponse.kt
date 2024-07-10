@@ -3,7 +3,6 @@ package com.jmedia.models.responses
 import com.jmedia.models.local.medias.Anime
 import com.jmedia.models.local.medias.Manga
 import com.jmedia.models.local.medias.Status
-import io.ktor.server.http.*
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -64,8 +63,8 @@ private fun Anime.toSmallAnimeResponse() = SmallAnimeResponse(
     format = format.name,
     status = status,
     totalEpisodes = totalEpisodes,
-    startDate = startDate?.toHttpDateString(),
-    endDate = endDate?.toHttpDateString(),
+    startDate = startDate?.toString(),
+    endDate = endDate?.toString(),
     rating = rating
 )
 
