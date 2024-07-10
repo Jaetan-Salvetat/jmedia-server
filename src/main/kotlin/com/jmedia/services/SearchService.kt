@@ -26,7 +26,7 @@ class SearchService {
     suspend fun search(query: String, types: Set<MediaType>, limit: Int): SearchResponse {
         val result = SearchResponse()
 
-        CoroutineScope(Dispatchers.Unconfined).async {
+        CoroutineScope(Dispatchers.IO).async {
             types.forEach { type ->
                 launch(coroutineContext) {
                     when (type) {
