@@ -22,12 +22,16 @@ class SearchService {
             types.forEach { type ->
                 launch(coroutineContext) {
                     when (type) {
-                        MediaType.Manga -> result.mangas = mangaScraper
-                            .search(query, limit)
-                            .toSmallMangaResponse()
-                        MediaType.Anime -> result.animes = animeScraper
-                            .search(query, limit)
-                            .toSmallAnimeResponse()
+                        MediaType.Manga -> {
+                            result.mangas = mangaScraper
+                                .search(query, limit)
+                                .toSmallMangaResponse()
+                        }
+                        MediaType.Anime -> {
+                            result.animes = animeScraper
+                                .search(query, limit)
+                                .toSmallAnimeResponse()
+                        }
                     }
                 }
             }
