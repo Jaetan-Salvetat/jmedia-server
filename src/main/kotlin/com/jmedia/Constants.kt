@@ -6,6 +6,6 @@ object Constants {
     lateinit var minioBaseUrl: String
 
     fun initialize(config: ApplicationConfig) {
-        minioBaseUrl = config.property("minio.endpoint").getString()
+        // minioBaseUrl = config.property("minio.endpoint").getString()
     }
 }

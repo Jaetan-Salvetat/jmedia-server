@@ -1,6 +1,8 @@
 package com.jmedia
 
-import com.jmedia.plugins.*
+import com.jmedia.plugins.configureHTTP
+import com.jmedia.plugins.configureRouting
+import com.jmedia.plugins.configureSerialization
 import io.ktor.server.application.*
 import io.ktor.server.netty.*
 
@@ -11,8 +13,8 @@ fun Application.module() {
 
     Constants.initialize(config)
     configureSerialization()
-    configureDatabase()
-    configureMinio()
+    // configureDatabase()
+    // configureMinio()
     configureHTTP()
     configureRouting()
 }

@@ -1,0 +1,28 @@
+config:
+  target: https://jmedia-staging.up.railway.app
+
+  phases:
+    - duration: 30
+      arrivalRate: 1
+      rampTo: 5
+      name: Default
+
+  plugins:
+    metrics-by-endpoint:
+      useOnlyRequestNames: true
+    ensure:
+      maxErrorRate: 1
+      thresholds:
+        - http.response_time.p99: 500
+    apdex:
+      threshold: 500
+
+scenarios:
+  - name: Search animes / mangas
+    flow:
+      - loop:
+        - get:
+            url: '/utils/get-big-data'
+        - get:
+            url: '/utils/ping'
+        count: 50
