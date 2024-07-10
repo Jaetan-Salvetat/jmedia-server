@@ -20,4 +20,3 @@ ktlint_standard_no-trailing-spaces=disabled
 ktlint_standard_import-ordering=disabled
 ktlint_standard_enum-wrapping=disabled
 ktlint_standard_property-naming=disabled
-ktlint_standard_wrapping=disabled
