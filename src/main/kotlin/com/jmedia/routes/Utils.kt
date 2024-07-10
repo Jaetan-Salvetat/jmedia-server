@@ -16,7 +16,7 @@ fun Route.utilsRouting() {
     route("utils") {
         get("ping") { call.respondText("pong!") }
         get("get-big-data") {
-            sleep(300)
+            sleep(200)
             val manga = Manga(
                 id = "id",
                 title = "Title",
