@@ -7,3 +7,7 @@ data class ErrorResponse(
     val message: String,
     override val success: Boolean = false
 ) : IResponse()
+
+object DefaultResponses {
+    val missingQueryParameter = ErrorResponse("missing_query_parameter")
+}
