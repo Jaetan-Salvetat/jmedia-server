@@ -15,6 +15,14 @@ class SearchService {
     private val mangaScraper = MangaScrapper()
     private val animeScraper = AnimeScrapper()
 
+    /**
+     * Start a search
+     *
+     * @param query [String]
+     * @param types [Set] of [MediaType]
+     * @param limit [Int]: Limit of search results
+     * @return [SearchResponse]
+     */
     suspend fun search(query: String, types: Set<MediaType>, limit: Int): SearchResponse {
         val result = SearchResponse()
 

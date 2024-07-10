@@ -6,9 +6,22 @@ import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransacti
 import java.io.File
 import java.util.*
 
+/**
+ * PostgreSQL Suspended Transaction
+ *
+ * @param T
+ * @param block
+ * @return [T]
+ */
 suspend fun <T> suspendedTransaction(block: suspend () -> T): T =
     newSuspendedTransaction(Dispatchers.IO) { block() }
 
+/**
+ * Retrieve files from multipart data
+ *
+ * @param data [MultiPartData]
+ * @return [List] of [File]
+ */
 suspend fun getFilesFromPartData(data: MultiPartData): List<File> {
     val files = mutableListOf<File>()
 

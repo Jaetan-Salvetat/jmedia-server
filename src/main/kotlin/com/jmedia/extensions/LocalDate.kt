@@ -5,8 +5,14 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import kotlin.reflect.KClass
 
-fun KClass<LocalDate>.fromString(s: String): LocalDate? = try {
-    LocalDate.parse(s, DateTimeFormatter.ofPattern("dd MM yyyy"))
+/**
+ * Convert a [String] to a [LocalDate]
+ *
+ * @param str [String]
+ * @return
+ */
+fun KClass<LocalDate>.fromString(str: String): LocalDate? = try {
+    LocalDate.parse(str, DateTimeFormatter.ofPattern("dd MM yyyy"))
 } catch (unused: DateTimeParseException) {
     null
 }
