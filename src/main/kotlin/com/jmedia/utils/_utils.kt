@@ -17,7 +17,7 @@ suspend fun <T> suspendedTransaction(block: suspend () -> T): T =
     newSuspendedTransaction(Dispatchers.IO) { block() }
 
 /**
- * Get files from part data
+ * Retrieve files from multipart data
  *
  * @param data [MultiPartData]
  * @return [List] of [File]
