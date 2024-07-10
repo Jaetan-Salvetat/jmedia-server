@@ -16,9 +16,9 @@ config:
       name: Spike phase
 
   plugins:
-    ensure: { }
-    apdex: { }
-    metrics-by-endpoint: { }
+    ensure: {}
+    apdex: {}
+    metrics-by-endpoint: {}
   apdex:
     threshold: 100
   ensure:
