@@ -31,7 +31,7 @@ enum class Status {
             "À venir" -> BeComing
             "En cours" -> InProgress
             else -> {
-                println("SERVER_ERROR: Unknown status $status")
+                println("SERVER_ERROR: Unknown status: $status in Status.fromString")
                 Unknown
             }
         }
