@@ -20,10 +20,12 @@ fun Route.searchRouting() {
                     status = HttpStatusCode.BadRequest,
                     message = DefaultResponses.missingQueryParameter
                 )
+            val limit = call.request.queryParameters["limit"]?.toIntOrNull() ?: Int.MAX_VALUE
+
             when (val typesResult = call.request.queryParameters["types"]?.getMediaTypes()) {
                 is MediaTypeResult.Success -> call.respond(
                     status = HttpStatusCode.OK,
-                    message = searchService.search(query, typesResult.types)
+                    message = searchService.search(query, typesResult.types, limit)
                 )
                 is MediaTypeResult.UnknownType -> return@get call.respond(
                     status = HttpStatusCode.BadRequest,

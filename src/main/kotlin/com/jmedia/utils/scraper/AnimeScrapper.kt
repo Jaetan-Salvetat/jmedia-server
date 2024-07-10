@@ -21,7 +21,7 @@ class AnimeScrapper : Scrapper<Anime>() {
 
     override fun getUrl(path: String) = "$baseUrl/animes/$path"
 
-    override suspend fun search(query: String): Set<Anime> {
+    override suspend fun search(query: String, limit: Int): Set<Anime> {
         var animes = mutableSetOf<Anime>()
 
         skrape(AsyncFetcher) {
@@ -127,7 +127,7 @@ class AnimeScrapper : Scrapper<Anime>() {
                                 animes = animes.replaceAt(
                                     index = index,
                                     newValue = anime.copy(
-                                        startDate = LocalDate::class.fromString(docElement.ownText),
+                                        startDate = LocalDate::class.fromString(docElement.ownText)
                                     )
                                 )
                             }
@@ -143,7 +143,7 @@ class AnimeScrapper : Scrapper<Anime>() {
                                 animes = animes.replaceAt(
                                     index = index,
                                     newValue = anime.copy(
-                                        endDate = LocalDate::class.fromString(docElement.ownText),
+                                        endDate = LocalDate::class.fromString(docElement.ownText)
                                     )
                                 )
                             }
@@ -169,6 +169,6 @@ class AnimeScrapper : Scrapper<Anime>() {
             }
         }
 
-        return animes
+        return animes.chunked(limit).first().toSet()
     }
 }

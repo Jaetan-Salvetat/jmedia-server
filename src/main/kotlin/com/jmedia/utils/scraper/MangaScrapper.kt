@@ -17,7 +17,7 @@ class MangaScrapper : Scrapper<Manga>() {
     
     override fun getUrl(path: String) = "$baseUrl/mangas/$path"
 
-    override suspend fun search(query: String): Set<Manga> {
+    override suspend fun search(query: String, limit: Int): Set<Manga> {
         var mangas = mutableSetOf<Manga>()
 
         return skrape(AsyncFetcher) {
@@ -129,7 +129,7 @@ class MangaScrapper : Scrapper<Manga>() {
                         }
                     }
 
-                    mangas.chunked(10).first().toSet()
+                    mangas.chunked(limit).first().toSet()
                 }
             }
         }
