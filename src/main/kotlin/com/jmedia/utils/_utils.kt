@@ -7,7 +7,7 @@ import java.io.File
 import java.util.*
 
 /**
- * PostgresSQL Suspended transaction
+ * PostgreSQL Suspended Transaction
  *
  * @param T
  * @param block
