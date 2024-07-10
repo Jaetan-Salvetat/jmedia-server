@@ -3,6 +3,12 @@ package com.jmedia.extensions
 import com.jmedia.models.local.MediaType
 import com.jmedia.models.local.MediaTypeResult
 
+/**
+ * Convert a [String] to a [MediaTypeResult].
+ * The string need to have this format: **type1,type2**
+ *
+ * @return [MediaTypeResult]
+ */
 fun String.getMediaTypes(): MediaTypeResult {
     val mediaTypes = mutableSetOf<MediaType>()
 
@@ -15,4 +21,11 @@ fun String.getMediaTypes(): MediaTypeResult {
     return MediaTypeResult.Success(mediaTypes)
 }
 
-fun String.toIntOrDefault(default: Int): Int = toIntOrNull() ?: default
+/**
+ * Convert a [String] to an [Int].
+ * Return the default value if the cast fail.
+ *
+ * @param default [Int]
+ * @return [Int]
+ */
+fun String.toIntOrDefault(default: Int = 0): Int = toIntOrNull() ?: default

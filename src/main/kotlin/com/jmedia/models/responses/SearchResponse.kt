@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 data class SearchResponse(
     var mangas: Set<SmallMangaResponse> = setOf(),
     var animes: Set<SmallAnimeResponse> = setOf()
-)
+) : IResponse()
 
 @Serializable
 data class SmallMangaResponse(
@@ -48,6 +48,12 @@ private fun Manga.toSmallMangaResponse() = SmallMangaResponse(
     voTomesNumber = voTomesNumber,
     rating = rating
 )
+
+/**
+ * Convert a [Set] of [Manga] to a [Set] of [SmallMangaResponse]
+ *
+ * @return [Set] of [SmallMangaResponse]
+ */
 fun Set<Manga>.toSmallMangaResponse(): Set<SmallMangaResponse> = map { it.toSmallMangaResponse() }.toSet()
 
 private fun Anime.toSmallAnimeResponse() = SmallAnimeResponse(
@@ -62,4 +68,10 @@ private fun Anime.toSmallAnimeResponse() = SmallAnimeResponse(
     endDate = endDate?.toHttpDateString(),
     rating = rating
 )
+
+/**
+ * Convert a [Set] of [Anime] to a [Set] of [SmallAnimeResponse]
+ *
+ * @return [Set] of [SmallAnimeResponse]
+ */
 fun Set<Anime>.toSmallAnimeResponse(): Set<SmallAnimeResponse> = map { it.toSmallAnimeResponse() }.toSet()
