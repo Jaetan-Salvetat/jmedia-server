@@ -15,7 +15,7 @@ class MangaScrapper : Scrapper<Manga>() {
     private val searchQueries = "?types_exclude%5B%5D=4&edition_sup=2&nb_vol_min=0&nb_chapitres_min=0&titre_alternatif=1&titre_alternatif_suite=1&titre_original_latin=1&titre_original=1&has=&tri=0"
     private val baseUrl = "https://www.nautiljon.com"
     
-    override fun getUrl(url: String) = "$baseUrl/mangas/$url"
+    override fun getUrl(path: String) = "$baseUrl/mangas/$path"
 
     override suspend fun search(query: String): Set<Manga> {
         var mangas = mutableSetOf<Manga>()
@@ -26,7 +26,7 @@ class MangaScrapper : Scrapper<Manga>() {
             }
             response {
                 htmlDocument {
-                    // Title + id
+                    // Image
                     "a.sim img" {
                         findAll {
                             forEachIndexed { index, docElement ->

@@ -3,6 +3,7 @@ package com.jmedia.models.responses
 import com.jmedia.models.local.medias.Anime
 import com.jmedia.models.local.medias.Manga
 import com.jmedia.models.local.medias.Status
+import io.ktor.server.http.*
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -32,6 +33,8 @@ data class SmallAnimeResponse(
     val format: String?,
     val status: Status,
     val totalEpisodes: Int?,
+    val startDate: String?,
+    val endDate: String?,
     val rating: Float?
 )
 
@@ -52,9 +55,11 @@ private fun Anime.toSmallAnimeResponse() = SmallAnimeResponse(
     title = title,
     description = description,
     image = image,
-    format = format,
+    format = format.name,
     status = status,
     totalEpisodes = totalEpisodes,
+    startDate = startDate?.toHttpDateString(),
+    endDate = endDate?.toHttpDateString(),
     rating = rating
 )
 fun Set<Anime>.toSmallAnimeResponse(): Set<SmallAnimeResponse> = map { it.toSmallAnimeResponse() }.toSet()
