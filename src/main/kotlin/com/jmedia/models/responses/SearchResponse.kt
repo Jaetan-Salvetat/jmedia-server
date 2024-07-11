@@ -7,8 +7,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SearchResponse(
-    var mangas: Set<SmallMangaResponse> = setOf(),
-    var animes: Set<SmallAnimeResponse> = setOf()
+    var mangas: Set<SmallMangaResponse>? = null,
+    var animes: Set<SmallAnimeResponse>? = null
 ) : IResponse()
 
 @Serializable

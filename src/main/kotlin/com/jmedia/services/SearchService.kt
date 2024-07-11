@@ -9,7 +9,6 @@ import com.jmedia.utils.scraper.MangaScrapper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 
 class SearchService {
     private val mangaScraper = MangaScrapper()
@@ -19,32 +18,26 @@ class SearchService {
      * Start a search
      *
      * @param query [String]
-     * @param types [Set] of [MediaType]
+     * @param forType [MediaType]
      * @param limit [Int]: Limit of search results
      * @return [SearchResponse]
      */
-    suspend fun search(query: String, types: Set<MediaType>, limit: Int): SearchResponse {
-        val result = SearchResponse()
-
-        CoroutineScope(Dispatchers.IO).async {
-            types.forEach { type ->
-                launch(coroutineContext) {
-                    when (type) {
-                        MediaType.Manga -> {
-                            result.mangas = mangaScraper
-                                .search(query, limit)
-                                .toSmallMangaResponse()
-                        }
-                        MediaType.Anime -> {
-                            result.animes = animeScraper
-                                .search(query, limit)
-                                .toSmallAnimeResponse()
-                        }
-                    }
-                }
+    suspend fun search(query: String, forType: MediaType, limit: Int) = CoroutineScope(Dispatchers.IO).async {
+        when (forType) {
+            MediaType.Manga -> {
+                SearchResponse(
+                    mangas = mangaScraper
+                        .search(query, limit)
+                        .toSmallMangaResponse()
+                )
             }
-        }.await()
-
-        return result
-    }
+            MediaType.Anime -> {
+                SearchResponse(
+                    animes = animeScraper
+                        .search(query, limit)
+                        .toSmallAnimeResponse()
+                )
+            }
+        }
+    }.await()
 }
