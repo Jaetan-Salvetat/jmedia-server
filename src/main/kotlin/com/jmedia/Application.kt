@@ -1,5 +1,6 @@
 package com.jmedia
 
+import com.jmedia.plugins.configureDatabase
 import com.jmedia.plugins.configureHTTP
 import com.jmedia.plugins.configureRouting
 import com.jmedia.plugins.configureSerialization
@@ -13,7 +14,7 @@ fun Application.module() {
 
     Constants.initialize(config)
     configureSerialization()
-    // configureDatabase()
+    configureDatabase()
     // configureMinio()
     configureHTTP()
     configureRouting()
