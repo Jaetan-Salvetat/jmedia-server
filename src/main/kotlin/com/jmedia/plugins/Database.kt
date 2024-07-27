@@ -13,15 +13,7 @@ fun Application.configureDatabase() {
 object DatabaseUtils {
     @Language("SQL")
     private val cacheTables = listOf(
-        """CREATE TABLE IF NOT EXISTS search(
-            id SERIAL,
-            type VARCHAR(255) NOT NULL,
-            mediaId VARCHAR(255) NOT NULL,
-            title VARCHAR(255) NOT NULL,
-            description VARCHAR(255) NOT NULL,
-            rating FLOAT,
-            imageUrl VARCHAR(255) NOT NULL
-       )""".trimMargin()
+        """""".trimMargin()
     )
     lateinit var cacheDB: Database
 
