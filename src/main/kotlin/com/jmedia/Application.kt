@@ -13,8 +13,6 @@ fun Application.module() {
 
     Constants.initialize(config)
     configureSerialization()
-    // configureDatabase()
-    // configureMinio()
     configureHTTP()
     configureRouting()
 }

@@ -6,11 +6,12 @@ ktor:
     modules:
       - com.jmedia.ApplicationKt.module
 
-#database:
-#  url: $DB_URL
-#  driver: $DB_DRIVER
-#  user: $DB_USER
-#  password: $DB_PASSWORD
+database:
+  driver: $DB_DRIVER
+  cache:
+    url: $CACHE_DB_URL
+    user: $CACHE_DB_USER
+    password: $CACHE_DB_PASSWORD
 
 #minio:
 #  endpoint: $MINIO_ENDPOINT

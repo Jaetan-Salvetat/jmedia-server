@@ -7,42 +7,38 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.transactions.transaction
 
 fun Application.configureDatabase() {
-    val config = environment.config
-
-    DatabaseUtils.initialize(config)
-    DatabaseUtils.createSchemas()
+    DatabaseUtils.initialize(environment.config)
 }
 
-private object DatabaseUtils {
+object DatabaseUtils {
     @Language("SQL")
-    private val tables = listOf(
-        """CREATE TABLE IF NOT EXISTS feedback (
-                id SERIAL PRIMARY KEY,
-                title VARCHAR(255) NOT NULL,
-                description TEXT NOT NULL,
-                type VARCHAR(255) NOT NULL,
-                filePath VARCHAR(255)
-        )"""
+    private val cacheTables = listOf(
+        """""".trimMargin()
     )
+    lateinit var cacheDB: Database
 
     fun initialize(config: ApplicationConfig) {
         println("Initialize database...")
-        Database.connect(
-            url = config.property("database.url").getString(),
+
+        cacheDB = Database.connect(
+            url = config.property("database.cache.url").getString(),
             driver = config.property("database.driver").getString(),
-            user = config.property("database.user").getString(),
-            password = config.property("database.password").getString()
+            user = config.property("database.cache.user").getString(),
+            password = config.property("database.cache.password").getString()
         )
+
+        createCacheSchemas()
+
         println("Database initialized 💪")
     }
 
-    fun createSchemas() {
+    private fun createCacheSchemas() {
         println("Create tables...")
-        transaction {
-            tables.forEach {
+        transaction(cacheDB) {
+            cacheTables.forEach {
                 exec(it)
             }
         }
-        println("Tables created 💪")
+        println("Cache tables created 💪")
     }
 }
