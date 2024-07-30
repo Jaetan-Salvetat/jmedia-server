@@ -3,8 +3,6 @@ package com.jmedia.utils.scraper
 import com.jmedia.models.local.medias.IMedia
 
 abstract class Scrapper<T : IMedia> {
-    abstract fun getUrl(path: String): String
-
     /**
      * Search a [T]
      *
@@ -13,6 +11,8 @@ abstract class Scrapper<T : IMedia> {
      * @return
      */
     abstract suspend fun search(query: String, limit: Int): Set<T>
+
+    protected abstract fun getUrl(path: String): String
 
     open fun String.toQuery(): String = replace(" ", "+")
 
