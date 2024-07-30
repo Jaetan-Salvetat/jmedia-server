@@ -13,5 +13,5 @@ enum class MediaType {
 
 sealed class MediaTypeResult {
     data class Success(val types: Set<MediaType>) : MediaTypeResult()
-    data object UnknownType : MediaTypeResult()
+    data class UnknownType(val type: String) : MediaTypeResult()
 }

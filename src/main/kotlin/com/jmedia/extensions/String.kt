@@ -14,7 +14,7 @@ fun String.getMediaTypes(): MediaTypeResult {
 
     split(",").forEach {
         val type = MediaType.fromString(it.trim())
-            ?: return MediaTypeResult.UnknownType
+            ?: return MediaTypeResult.UnknownType(it.trim())
         mediaTypes.add(type)
     }
 
