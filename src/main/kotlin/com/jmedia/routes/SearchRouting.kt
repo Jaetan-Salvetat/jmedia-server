@@ -22,7 +22,7 @@ fun Route.searchRouting() {
             val query = call.request.queryParameters["q"]
                 ?: return@get call.respond(
                     status = HttpStatusCode.BadRequest,
-                    message = DefaultResponses.missingQueryParameter("q"),
+                    message = DefaultResponses.missingQueryParameter("q")
                 )
             val limit = call.request.queryParameters["limit"]?.toIntOrNull() ?: 20
 
@@ -35,7 +35,8 @@ fun Route.searchRouting() {
                     status = HttpStatusCode.BadRequest,
                     message = ErrorResponse(
                         message = "unknown_media_type",
-                        details = "Unknown media type: ${typesResult.type}")
+                        details = "Unknown media type: ${typesResult.type}"
+                    )
                 )
                 null -> return@get call.respond(
                     status = HttpStatusCode.BadRequest,
